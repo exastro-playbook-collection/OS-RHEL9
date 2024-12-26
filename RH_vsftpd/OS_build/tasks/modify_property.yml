@@ -1,0 +1,26 @@
+---
+- name: Write file.({{ parameter.path }})
+  lineinfile:
+    path: "{{ parameter.path }}"
+    regexp: '^\s*{{ item.key }}\s*=.*'
+    line: '{{ item.key }}={{ item.value }}'
+  with_dict:
+    "{{ parameter.properties }}"
+  register: lineinfile_result
+  when: parameter.file is undefined or parameter.file is none or parameter.file == ''
+
+- name: Copy file. ({{ parameter.file }})
+  copy:
+    src: "{{ parameter.file }}"
+    dest: "{{ parameter.path }}"
+  register: copy_result
+  when:
+  - parameter.file is defined
+  - parameter.file is not none
+  - parameter.file != ''
+
+- name: Restart vsftpd.
+  systemd:
+    state: restarted
+    name: vsftpd
+  when: lineinfile_result.changed or copy_result.changed

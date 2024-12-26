@@ -1,0 +1,60 @@
+---
+- name: Modify sysctl conf file
+  command: "sysctl -p {{ VAR_RH_reboot.sysctlfile }}"
+
+- name: Serialize systemd manager
+  systemd:
+    daemon_reexec: yes
+
+- name: Reload systemd's changes
+  systemd:
+    daemon_reload: yes
+
+- name: Restart service by nmcli
+  shell: "nmcli networking off && nmcli networking on"
+
+- name: Restart service
+  listen: handlers_service
+  systemd:
+    state: restarted
+    name: "{{ item }}"
+  when:
+    - item != ""
+    - item is not none
+    - item != "udev"
+  with_items: "{{ VAR_RH_reboot.restarted_services }}"
+
+- name: Restart service udev
+  listen: handlers_service
+  shell: "udevadm control --reload-rules && udevadm trigger"
+  when: item == "udev"
+  with_items: "{{ VAR_RH_reboot.restarted_services }}"
+
+- name: Run linux reboot command
+  listen: handlers_reboot
+  command: shutdown -r -t 0
+  changed_when: true
+
+- name: Wait for connection down
+  listen: handlers_reboot
+  wait_for_connection:
+    delay: 65
+    timeout: 5
+  ignore_errors: true
+
+- name: Wait for connection up
+  listen: handlers_reboot
+  wait_for_connection:
+    delay: 60
+
+- name: Run linux shutdown command
+  listen: handlers_shutdown
+  command: shutdown -t 0
+  changed_when: true
+
+- name: Wait for connection down
+  listen: handlers_shutdown
+  wait_for_connection:
+    delay: 90
+    timeout: 5
+  ignore_errors: true

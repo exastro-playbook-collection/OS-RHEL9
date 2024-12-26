@@ -1,0 +1,6 @@
+---
+file:
+  - /etc/bashrc
+  - /etc/csh.cshrc
+  - /etc/csh.login
+

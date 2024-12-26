@@ -1,0 +1,3 @@
+---
+command:
+  - rpm -qa --qf '%{name}/%{version}/%{release}/%{arch} \n'| sort

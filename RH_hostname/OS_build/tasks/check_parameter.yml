@@ -1,0 +1,6 @@
+---
+- name: Check parameter hostname.
+  fail:
+    msg: "The value of the parameter hostname cannot be space and none. Confirm hostname parameter."
+  when:
+    - parameter == "" or parameter == None

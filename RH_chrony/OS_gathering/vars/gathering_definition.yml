@@ -1,0 +1,4 @@
+---
+file:
+  - /etc/chrony.conf
+  - /etc/chrony.keys

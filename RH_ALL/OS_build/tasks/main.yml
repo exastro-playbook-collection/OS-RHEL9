@@ -1,0 +1,10 @@
+---
+- name: Execute task. (build.yml)
+  include_tasks: build.yml
+  with_items: "{{ VAR_OS_target_rolename }}"
+  loop_control:
+    loop_var: outer_item
+
+- name: Reboot OS.
+  reboot:
+  when: VAR_OS_reboot

@@ -1,0 +1,12 @@
+---
+- name: Execute module. (group create/update {{ parameter.group_name }})
+  group:
+    name: "{{ parameter.group_name }}"
+    gid: "{{ parameter.group_id }}"
+  when: parameter.action == 'present'
+
+- name: Execute module. (group delete {{ parameter.group_name }})
+  group:
+    state: absent
+    name: "{{ parameter.group_name }}"
+  when: parameter.action == 'absent'

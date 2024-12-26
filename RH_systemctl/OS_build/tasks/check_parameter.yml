@@ -1,0 +1,33 @@
+---
+- name: Check parameter name.
+  fail:
+    msg: "name parameter is not defined. Confirm name parameter."
+  when:
+    - parameter.name is not defined
+
+- name: Check parameter status. ({{ parameter.name }})
+  fail:
+    msg: "status parameter is not defined. Confirm status parameter."
+  when:
+    - parameter.status is not defined
+
+- name: Check parameter action. ({{ parameter.name }})
+  fail:
+    msg: "action parameter is not defined. Confirm action parameter."
+  when:
+    - parameter.action is not defined
+
+- name: Check parameter action. ({{ parameter.name }})
+  fail:
+    msg: "Invalid value is set for the action parameter({{ parameter.action }}). Confirm action parameter."
+  when:
+    - parameter.action != 'true'
+    - parameter.action != 'false'
+
+- name: Check parameter dopreset. ({{ parameter.name }})
+  fail:
+    msg: "Invalid value is set for the dopreset parameter({{ parameter.dopreset }}). Confirm dopreset parameter."
+  when:
+    - parameter.dopreset is defined
+    - parameter.dopreset != 'true'
+    - parameter.dopreset != 'false'

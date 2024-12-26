@@ -1,0 +1,21 @@
+---
+- name: Check variables. (VAR_OS_gathering_dest_all)
+  fail:
+    msg: "Variables is none. (VAR_OS_gathering_dest_all)"
+  when: "(VAR_OS_gathering_dest_all is none) or (not VAR_OS_gathering_dest_all)"
+
+- name: Check variables. (VAR_OS_extracting_dest_all)
+  fail:
+    msg: "Variables is none. (VAR_OS_gathering_dest_all)"
+  when: "(VAR_OS_extracting_dest_all is none) or (not VAR_OS_extracting_dest_all)"
+
+- name: Check variables. (VAR_OS_python_cmd_all)
+  fail:
+    msg: "Variables is none. (VAR_OS_python_cmd_all)"
+  when: "(VAR_OS_python_cmd_all is none) or (not VAR_OS_python_cmd_all)"
+
+- name: Execute task. (gather.yml)
+  include_tasks: gather.yml
+  with_items: "{{ VAR_OS_target_rolename }}"
+  loop_control:
+    loop_var: outer_item

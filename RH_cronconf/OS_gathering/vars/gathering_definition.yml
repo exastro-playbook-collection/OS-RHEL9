@@ -1,0 +1,8 @@
+---
+file:
+  - /etc/cron.allow
+  - /etc/cron.deny
+  - /etc/cron.hourly/
+  - /etc/cron.daily/
+  - /etc/cron.weekly/
+  - /etc/cron.monthly/

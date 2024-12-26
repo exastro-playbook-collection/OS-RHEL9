@@ -1,0 +1,7 @@
+---
+- include_tasks: build_flat.yml
+  with_items: "{{ VAR_RH_firewalld }}"
+  loop_control:
+    loop_var: parameter
+  when: VAR_RH_firewalld is defined
+

@@ -1,0 +1,5 @@
+---
+- include_tasks: modify_hostname.yml
+  vars:
+    parameter: "{{ VAR_RH_hostname.hostname }}"
+  when: VAR_RH_hostname.hostname is defined

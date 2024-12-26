@@ -1,0 +1,6 @@
+---
+- include_tasks: build_property_section.yml
+  with_items: "{{ VAR_RH_systemd }}"
+  loop_control:
+    loop_var: parameter
+  when: VAR_RH_systemd is defined

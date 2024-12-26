@@ -1,0 +1,32 @@
+---
+- name: Execute module. (user create {{ parameter.user_name }})
+  user:
+    name: "{{ parameter.user_name }}"
+    uid: "{{ parameter.user_id }}"
+    group: "{{ parameter.group_id }}"
+    comment: "{{ parameter.comment }}"
+    home: "{{ parameter.home_dir }}"
+    shell: "{{ parameter.login_shell }}"
+    password: "{{ parameter.password | password_hash('sha512') }}"
+  when:
+    - parameter.action == 'present'
+    - parameter.password_apply
+
+- name: Execute module. (user update {{ parameter.user_name }})
+  user:
+    name: "{{ parameter.user_name }}"
+    uid: "{{ parameter.user_id }}"
+    group: "{{ parameter.group_id }}"
+    comment: "{{ parameter.comment }}"
+    home: "{{ parameter.home_dir }}"
+    shell: "{{ parameter.login_shell }}"
+  when:
+    - parameter.action == 'present'
+    - not parameter.password_apply
+
+- name: Execute module. (user delete {{ parameter.user_name }})
+  user:
+    state: absent
+    name: "{{ parameter.user_name }}"
+    remove: 'yes'
+  when: parameter.action == 'absent'

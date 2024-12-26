@@ -1,0 +1,12 @@
+---
+- name: Execute module. (yum install {{ parameter.pkg_name }})
+  yum:
+    state: installed
+    name: "{{ parameter.pkg_name }}"
+  when: parameter.action == 'present'
+
+- name: Execute module. (yum uninstall {{ parameter.pkg_name }})
+  yum:
+    state: removed
+    name: "{{ parameter.pkg_name }}"
+  when: parameter.action == 'absent'

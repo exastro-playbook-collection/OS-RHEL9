@@ -1,0 +1,3 @@
+---
+command:
+  - hostnamectl status --static

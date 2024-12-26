@@ -1,0 +1,3 @@
+{% for item in parameter.text %}
+{{ item }}
+{% endfor %}

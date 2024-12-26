@@ -1,0 +1,6 @@
+---
+- include_tasks: build_flat.yml
+  with_items: "{{ VAR_RH_hosts }}"
+  loop_control:
+    loop_var: parameter
+  when: VAR_RH_hosts is defined

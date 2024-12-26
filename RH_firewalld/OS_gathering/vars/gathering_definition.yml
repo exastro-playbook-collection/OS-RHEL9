@@ -1,0 +1,5 @@
+---
+file:
+  - /etc/firewalld/firewalld.conf
+  - /etc/firewalld/
+

@@ -1,0 +1,89 @@
+---
+- name: Modify sysctl conf file
+  block:
+    - name: Modify sysctl conf file
+      set_fact:
+        _msg: "Modify sysctl conf file"
+      changed_when: true
+      notify: Modify sysctl conf file
+
+    - meta: flush_handlers
+  when:
+    - VAR_RH_reboot.sysctlfile is defined
+    - VAR_RH_reboot.sysctlfile is not none
+    - VAR_RH_reboot.sysctlfile != ''
+
+- name: serialize systemd manager
+  block:
+    - name: serialize systemd manager
+      set_fact:
+        _msg: "serialize systemd manager"
+      changed_when: true
+      notify: Serialize systemd manager
+
+    - meta: flush_handlers
+  when:
+    - VAR_RH_reboot.daemonReexec_requires is defined
+    - VAR_RH_reboot.daemonReexec_requires
+
+- name: reload the change of systemd manager
+  block:
+    - name: reload the change of systemd manager
+      set_fact:
+        _msg: "reload the change of systemd manager"
+      changed_when: true
+      notify: Reload systemd's changes
+
+    - meta: flush_handlers
+  when:
+    - VAR_RH_reboot.daemonReload_requires is defined
+    - VAR_RH_reboot.daemonReload_requires
+
+- name: restart service by nmcli
+  block:
+    - name: restart service by nmcli
+      set_fact:
+        _msg: "restart service by nmcli"
+      changed_when: true
+      notify: Restart service by nmcli
+
+    - meta: flush_handlers
+  when:
+    - VAR_RH_reboot.nmcli_restart is defined
+    - VAR_RH_reboot.nmcli_restart
+
+- name: restart service
+  block:
+    - name: restart service
+      set_fact:
+        _msg: "restart service"
+      changed_when: true
+      notify: handlers_service
+
+    - meta: flush_handlers
+  when:
+    - VAR_RH_reboot.restarted_services is defined
+    - VAR_RH_reboot.restarted_services is not none
+    - VAR_RH_reboot.restarted_services != ''
+
+- name: reboot OS
+  block:
+    - name: reboot OS
+      set_fact:
+        _msg: "reboot OS"
+      changed_when: true
+      notify: handlers_reboot
+
+    - meta: flush_handlers
+  when:
+    - VAR_RH_reboot.reboot_requires is defined
+    - VAR_RH_reboot.reboot_requires
+
+- name: shutdown OS
+  set_fact:
+    _msg: "shutdown OS"
+  changed_when: true
+  notify: handlers_shutdown
+  when:
+    - VAR_RH_reboot.shutdown_requires is defined
+    - VAR_RH_reboot.shutdown_requires

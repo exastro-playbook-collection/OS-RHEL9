@@ -1,0 +1,10 @@
+---
+- name: Check default_target.
+  command: /usr/bin/systemctl get-default
+  register: check_ret
+  changed_when: False
+
+- name: Set default_target. (VAR_RH_default_target.default_mode)
+  command: /usr/bin/systemctl set-default "{{ VAR_RH_default_target.default_mode }}"
+  when:
+    - (check_ret.stdout) != VAR_RH_default_target.default_mode

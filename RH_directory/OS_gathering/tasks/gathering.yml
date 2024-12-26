@@ -1,0 +1,19 @@
+---
+- name: Remove file. ({{ gathering_dest }}/{{ inventory_hostname }}/OS/{{ gather_rolename }})
+  file:
+    path: "{{ gathering_dest }}/{{ inventory_hostname }}/OS/{{ gather_rolename }}"
+    state: absent
+  delegate_to: localhost
+  become: no
+  changed_when: False
+
+- name: Execute role. (gathering)
+  include_role:
+    name: "{{ playbook_dir }}/roles/gathering"
+  vars:
+    VAR_gathering_definition_role_path: "{{ playbook_dir }}/roles/{{ osname }}/{{ gather_rolename }}/OS_gathering/vars/{{ inventory_hostname }}"
+    VAR_gathering_label: "{{ gather_rolename }}"
+    VAR_gathering_dest_role_path: "{{ gathering_dest }}/{{ inventory_hostname }}/OS/{{ gather_rolename }}"
+    VAR_gathering_command_save_file:
+      - "stdout"
+

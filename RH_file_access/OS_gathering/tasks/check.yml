@@ -1,0 +1,20 @@
+---
+- name: Check variables. (VAR_OS_gathering_dest)
+  fail:
+    msg: "Variables is none. (VAR_OS_gathering_dest)"
+  when: "(VAR_OS_gathering_dest is none) or (not VAR_OS_gathering_dest)"
+
+- name: Check variables. (VAR_OS_extracting_dest)
+  fail:
+    msg: "Variables is none. (VAR_OS_extracting_dest)"
+  when: "(VAR_OS_extracting_dest is none) or (not VAR_OS_extracting_dest)"
+
+- name: Check variables. (VAR_OS_python_cmd)
+  fail:
+    msg: "Variables is none. (VAR_OS_python_cmd)"
+  when: "(VAR_OS_python_cmd is none) or (not VAR_OS_python_cmd)"
+
+- name: Check variables. (VAR_OS_gathering_file_path)
+  fail:
+    msg: "Variables is none. (VAR_OS_gathering_file_path)"
+  when: "(VAR_OS_gathering_file_path is none) or (not VAR_OS_gathering_file_path)"

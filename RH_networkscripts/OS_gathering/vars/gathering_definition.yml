@@ -1,0 +1,4 @@
+---
+file:
+  - /etc/sysconfig/network-scripts/
+  - /etc/NetworkManager/system-connections/

@@ -1,0 +1,5 @@
+---
+file:
+  - /etc/authselect/system-auth
+  - /etc/authselect/password-auth
+  - /etc/login.defs

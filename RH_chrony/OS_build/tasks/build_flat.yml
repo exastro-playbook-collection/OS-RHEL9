@@ -1,0 +1,16 @@
+---
+- name: Write file. ({{ parameter.path }})
+  template:
+    src: flat_template
+    dest: "{{ parameter.path }}"
+  when: parameter.file is undefined or parameter.file is none or parameter.file == ''
+
+- name: Copy file. ({{ parameter.file }})
+  copy:
+    src: "{{ parameter.file }}"
+    dest: "{{ parameter.path }}"
+  when:
+  - parameter.file is defined
+  - parameter.file is not none
+  - parameter.file != ''
+

@@ -1,0 +1,23 @@
+---
+- name: Remove file. ({{ extracting_dest }}/{{ inventory_hostname }}/OS/{{ gather_rolename }})
+  file:
+    path: "{{ extracting_dest }}/{{ inventory_hostname }}/OS/{{ gather_rolename }}"
+    state: absent
+  delegate_to: localhost
+  become: no
+  changed_when: False
+
+- name: Check file existance. ({{ gathering_dest }}/{{ inventory_hostname }}/OS/{{ gather_rolename }})
+  stat:
+    path: "{{ gathering_dest }}/{{ inventory_hostname }}/OS/{{ gather_rolename }}"
+  delegate_to: localhost
+  become: no
+  register: file_exist
+
+- name: Execute parameter_generate module. ({{ gather_rolename }})
+  parameter_generate:
+    rolename: "OS/{{ gather_rolename }}"
+    collect_root: "{{ gathering_dest }}/{{ inventory_hostname }}/OS/{{ gather_rolename }}"
+    dest: "{{ extracting_dest }}"
+    specific: "{{ python_cmd }} {{ playbook_dir }}/roles/{{ osname }}/{{ gather_rolename }}/OS_gathering/files/extracting.py"
+  when: file_exist.stat.exists

@@ -1,0 +1,6 @@
+---
+file:
+  - /etc/anacrontab
+  - /etc/crontab
+  - /etc/cron.d/
+

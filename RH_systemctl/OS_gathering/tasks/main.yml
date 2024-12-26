@@ -1,0 +1,16 @@
+---
+- import_tasks: check.yml
+
+- import_tasks: gathering.yml
+  vars:
+    gathering_dest: "{{ (VAR_OS_gathering_dest_all) if VAR_OS_gathering_dest_all is defined else (VAR_OS_gathering_dest) }}"
+    osname: "OS-RHEL9"
+    gather_rolename: "RH_systemctl"
+
+- import_tasks: generate.yml
+  vars:
+    gathering_dest: "{{ (VAR_OS_gathering_dest_all) if VAR_OS_gathering_dest_all is defined else (VAR_OS_gathering_dest) }}"
+    extracting_dest: "{{ (VAR_OS_extracting_dest_all) if VAR_OS_extracting_dest_all is defined else (VAR_OS_extracting_dest) }}"
+    python_cmd: "{{ (VAR_OS_python_cmd_all) if VAR_OS_python_cmd_all is defined else (VAR_OS_python_cmd) }}"
+    osname: "OS-RHEL9"
+    gather_rolename: "RH_systemctl"

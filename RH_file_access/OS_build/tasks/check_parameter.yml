@@ -1,0 +1,21 @@
+---
+- name: Check parameter file_path.
+  fail:
+    msg: "file_path parameter is not defined. Confirm file_path parameter."
+  when:
+    - parameter.file_path is not defined
+
+- name: Check parameter action. ({{ parameter.file_path }})
+  fail:
+    msg: "action parameter is not defined. Confirm action parameter."
+  when:
+    - parameter.action is not defined
+
+- name: Check parameter action. ({{ parameter.file_path }})
+  fail:
+    msg: "Invalid value is set for the action parameter({{ parameter.action }}). Confirm action parameter."
+  when:
+    - parameter.action != 'file'
+    - parameter.action != 'link'
+    - parameter.action != 'absent'
+

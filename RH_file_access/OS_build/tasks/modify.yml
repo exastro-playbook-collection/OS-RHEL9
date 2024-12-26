@@ -1,0 +1,5 @@
+---
+- include_tasks: modify_file.yml
+  loop: "{{ VAR_RH_file_access|flatten(levels=1) }}"
+  loop_control:
+    loop_var: parameter

@@ -1,0 +1,24 @@
+---
+- name: Execute module. (file update {{ parameter.file_path }})
+  file:
+    state: file
+    path: "{{ parameter.file_path }}"
+    owner: "{{ parameter.owner }}"
+    group: "{{ parameter.group }}"
+    mode: "{{ parameter.mode }}"
+  when:
+    - parameter.action == 'file'
+    - parameter.symbolic_link is not defined
+
+- name: Execute module. (file link {{ parameter.file_path }})
+  file:
+    state: link
+    src: "{{ parameter.file_path }}"
+    dest: "{{ parameter.symbolic_link }}"
+  when: parameter.action == 'link'
+
+- name: Execute module. (file delete {{ parameter.file_path }})
+  file:
+    state: absent
+    path: "{{ parameter.file_path }}"
+  when: parameter.action == 'absent'

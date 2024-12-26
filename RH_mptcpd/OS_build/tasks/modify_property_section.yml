@@ -1,0 +1,10 @@
+---
+- name: Write file.({{ parameter.path }})
+  ini_file:
+    path: "{{ parameter.path }}"
+    section: "{{ section_value.section }}"
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+    no_extra_spaces: yes
+  with_dict:
+    "{{ section_value.properties }}"

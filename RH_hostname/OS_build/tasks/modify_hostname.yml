@@ -1,0 +1,5 @@
+---
+- name: Execute module. (hostnamectl set-hostname {{ parameter }})
+  hostname:
+    name: "{{ parameter }}"
+    use: "systemd"

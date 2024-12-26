@@ -1,0 +1,26 @@
+---
+- name: Remove file. {{ gathering_rolepath }}/vars/{{ inventory_hostname }}/vars/gathering_definition.yml
+  file:
+    path: "{{ gathering_rolepath }}/vars/{{ inventory_hostname }}/vars/gathering_definition.yml"
+    state: absent
+  delegate_to: localhost
+  become: no
+  changed_when: False
+
+- name: Create directory. {{ gathering_rolepath }}/vars/{{ inventory_hostname }}/vars
+  file:
+    path: "{{ gathering_rolepath }}/vars/{{ inventory_hostname }}/vars"
+    state: directory
+    mode: '0775'
+  delegate_to: localhost
+  become: no
+  changed_when: False
+
+- name: Copy file. {{ gathering_rolepath }}/vars/gathering_definition_base.yml
+  copy:
+    src: "{{ gathering_rolepath }}/vars/gathering_definition_base.yml"
+    dest: "{{ gathering_rolepath }}/vars/{{ inventory_hostname }}/vars/gathering_definition.yml"
+    mode: '0644'
+  delegate_to: localhost
+  become: no
+  changed_when: False

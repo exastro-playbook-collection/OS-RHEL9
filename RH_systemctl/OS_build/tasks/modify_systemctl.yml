@@ -1,0 +1,38 @@
+---
+- name: Execute module. (service start {{ loop_item.name }})
+  systemd:
+    name: "{{ loop_item.name }}"
+    enabled: yes
+  when:
+    - loop_item.status == 'enabled'
+    - (loop_item.dopreset is not defined) or (loop_item.dopreset == 'false')
+
+- name: Execute module. (service stop {{ loop_item.name }})
+  systemd:
+    name: "{{ loop_item.name }}"
+    enabled: no
+  when:
+    - loop_item.status == 'disabled'
+    - (loop_item.dopreset is not defined) or (loop_item.dopreset == 'false')
+
+- name: Execute module. (service masked {{ loop_item.name }})
+  systemd:
+    name: "{{ loop_item.name }}"
+    masked: yes
+  when:
+    - loop_item.status == 'masked'
+    - (loop_item.dopreset is not defined) or (loop_item.dopreset == 'false')
+
+- name: Execute module. (service masked off {{ loop_item.name }})
+  systemd:
+    name: "{{ loop_item.name }}"
+    masked: no
+  when:
+    - loop_item.status == 'masked_off'
+    - (loop_item.dopreset is not defined) or (loop_item.dopreset == 'false')
+
+- name: Execute module. (service preset {{ loop_item.name }})
+  command: "/usr/bin/systemctl preset {{ loop_item.name }}"
+  when:
+    - loop_item.dopreset is defined
+    - loop_item.dopreset == 'true'

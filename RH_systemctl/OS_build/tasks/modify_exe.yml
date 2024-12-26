@@ -1,0 +1,5 @@
+---
+- name: Execute task. (modify_systemctl.yml)
+  include_tasks: modify_systemctl.yml
+  when:
+    - loop_item.action == 'true'

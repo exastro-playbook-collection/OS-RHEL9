@@ -1,0 +1,4 @@
+---
+file:
+  - /etc/logrotate.conf
+  - /etc/logrotate.d/

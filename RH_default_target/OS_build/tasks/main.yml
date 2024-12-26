@@ -1,0 +1,4 @@
+---
+- name: Execute task. (build_default_target.yml)
+  import_tasks: build_default_target.yml
+  when: VAR_RH_default_target is defined

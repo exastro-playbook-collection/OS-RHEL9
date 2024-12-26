@@ -1,0 +1,17 @@
+---
+VAR_OS_gathering_dest: "{{ playbook_dir }}/_gathered_data"
+VAR_OS_extracting_dest: "{{ playbook_dir }}/_parameters"
+VAR_OS_python_cmd: "python3"
+
+# gathering file list
+VAR_OS_gathering_file_path:
+ - /etc/cron.allow
+ - /etc/cron.deny
+ - /etc/cron.daily
+ - /etc/cron.hourly
+ - /etc/cron.weekly
+ - /etc/cron.monthly
+ - /etc/rc.d
+ - /etc/security/console.apps
+ - /etc/security/opasswd
+ - /usr/local/bin

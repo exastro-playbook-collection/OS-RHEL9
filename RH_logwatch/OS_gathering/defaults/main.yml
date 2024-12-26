@@ -1,0 +1,5 @@
+---
+VAR_OS_gathering_dest: "{{ playbook_dir }}/_gathered_data"
+VAR_OS_extracting_dest: "{{ playbook_dir }}/_parameters"
+VAR_OS_python_cmd: "python3"
+

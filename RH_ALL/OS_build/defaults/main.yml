@@ -1,0 +1,49 @@
+---
+VAR_OS_reboot: false
+
+VAR_OS_target_rolename:
+#- RH_rpm
+ - RH_group
+ - RH_user
+#- RH_directory
+ - RH_grub2
+ - RH_sysctl
+ - RH_kdump
+ - RH_initfunc
+ - RH_cron
+#- RH_cronconf
+ - RH_nsswitch
+#- RH_resolv
+ - RH_hosts
+ - RH_services
+#- RH_nftables
+ - RH_sshd_config
+ - RH_ssh_config
+#- RH_vsftpd
+#- RH_vsftpd_user
+#- RH_logrotate
+ - RH_profile
+ - RH_profile_all
+ - RH_sudo
+ - RH_limits
+#- RH_udev_rules
+ - RH_fstab
+#- RH_networkscripts
+ - RH_systemctl
+ - RH_default_target
+ - RH_systemd
+ - RH_firewalld
+#- RH_chrony
+ - RH_postfix
+ - RH_init
+ - RH_inittab
+ - RH_hosts_allow_deny
+ - RH_securetty
+#- RH_pam
+ - RH_rsyslog
+#- RH_logwatch
+#- RH_selinux
+#- RH_file_access
+#- RH_reboot
+ - RH_hostname
+ - RH_mptcpd

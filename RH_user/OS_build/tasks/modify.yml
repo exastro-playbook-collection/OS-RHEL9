@@ -1,0 +1,5 @@
+---
+- include_tasks: modify_user.yml
+  loop: "{{ VAR_RH_user|flatten(levels=1) }}"
+  loop_control:
+    loop_var: parameter

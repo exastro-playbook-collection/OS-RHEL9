@@ -1,0 +1,6 @@
+---
+- include_tasks: modify_property.yml
+  with_items: "{{ VAR_RH_sysctl }}"
+  loop_control:
+    loop_var: parameter
+  when: VAR_RH_sysctl is defined

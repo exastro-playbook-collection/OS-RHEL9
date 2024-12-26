@@ -1,0 +1,24 @@
+---
+- name: Write file.({{ parameter.path }})
+  lineinfile:
+    path: "{{ parameter.path }}"
+    regexp: '^\s*{{ item.key }}\s*=.*'
+    line: '{{ item.key }}={{ item.value }}'
+  register: lineinfile_result
+  with_dict:
+    "{{ parameter.properties }}"
+  when: parameter.file is undefined or parameter.file is none or parameter.file == ''
+
+- name: Copy file. ({{ parameter.file }})
+  copy:
+    src: "{{ parameter.file }}"
+    dest: "{{ parameter.path }}"
+  register: copy_result
+  when:
+  - parameter.file is defined
+  - parameter.file is not none
+  - parameter.file != ''
+
+- name: Modify grub file.
+  command: "/usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg"
+  when: lineinfile_result.changed or copy_result.changed

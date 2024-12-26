@@ -1,0 +1,3 @@
+---
+file:
+  - /etc/authselect/nsswitch.conf

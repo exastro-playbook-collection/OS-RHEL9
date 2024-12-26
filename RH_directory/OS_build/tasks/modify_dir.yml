@@ -1,0 +1,24 @@
+---
+- name: Execute module. (directroy create/update {{ parameter.dir_path }})
+  file:
+    state: directory
+    path: "{{ parameter.dir_path }}"
+    owner: "{{ parameter.owner }}"
+    group: "{{ parameter.group }}"
+    mode: "{{ parameter.mode }}"
+  when:
+    - parameter.action == 'directory'
+    - parameter.symbolic_link is not defined
+
+- name: Execute module. (directroy link {{ parameter.dir_path }})
+  file:
+    state: link
+    src: "{{ parameter.dir_path }}"
+    dest: "{{ parameter.symbolic_link }}"
+  when: parameter.action == 'link'
+
+- name: Execute module. (directroy delete {{ parameter.dir_path }})
+  file:
+    state: absent
+    path: "{{ parameter.dir_path }}"
+  when: parameter.action == 'absent'

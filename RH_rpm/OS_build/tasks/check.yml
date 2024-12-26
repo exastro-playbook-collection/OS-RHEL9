@@ -1,0 +1,6 @@
+---
+- include_tasks: check_parameter.yml
+  loop: "{{ VAR_RH_rpm|flatten(levels=1) }}"
+  loop_control:
+    loop_var: parameter
+

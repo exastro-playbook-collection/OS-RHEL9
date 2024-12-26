@@ -1,0 +1,32 @@
+---
+- name: Check parameter user_name.
+  fail:
+    msg: "user_name parameter is not defined. Confirm user_name parameter."
+  when:
+    - parameter.user_name is not defined
+
+- name: Check parameter action. ({{ parameter.user_name }})
+  fail:
+    msg: "action parameter is not defined. Confirm action parameter."
+  when:
+    - parameter.action is not defined
+
+- name: Check parameter action. ({{ parameter.user_name }})
+  fail:
+    msg: "Invalid value is set for the action parameter({{ parameter.action }}). Confirm action parameter."
+  when:
+    - parameter.action != 'present'
+    - parameter.action != 'absent'
+
+- name: Check parameter password_apply. ({{ parameter.user_name }})
+  fail:
+    msg: "password_apply parameter is not defined. Confirm password_apply parameter."
+  when:
+    - parameter.password_apply is not defined
+
+- name: Check parameter password_apply. ({{ parameter.user_name }})
+  fail:
+    msg: "Invalid value is set for the password_apply parameter({{ parameter.password_apply }}). Confirm password_apply parameter."
+  when:
+    - (parameter.password_apply | string) != 'True'
+    - (parameter.password_apply | string) != 'False'

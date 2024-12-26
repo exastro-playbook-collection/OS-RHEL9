@@ -1,0 +1,21 @@
+---
+- name: Check parameter dir_path.
+  fail:
+    msg: "dir_path parameter is not defined. Confirm dir_path parameter."
+  when:
+    - parameter.dir_path is not defined
+
+- name: Check parameter action. ({{ parameter.dir_path }})
+  fail:
+    msg: "action parameter is not defined. Confirm action parameter."
+  when:
+    - parameter.action is not defined
+
+- name: Check parameter action. ({{ parameter.dir_path }})
+  fail:
+    msg: "Invalid value is set for the action parameter({{ parameter.action }}). Confirm action parameter."
+  when:
+    - parameter.action != 'directory'
+    - parameter.action != 'link'
+    - parameter.action != 'absent'
+

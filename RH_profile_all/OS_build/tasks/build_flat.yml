@@ -1,0 +1,28 @@
+---
+- name: Write file. ({{ parameter.path }})
+  template:
+    src: flat_template
+    dest: "{{ parameter.path }}"
+  register: template_result
+  when: parameter.file is undefined or parameter.file is none or parameter.file == ''
+
+- name: Copy file. ({{ parameter.file }})
+  copy:
+    src: "{{ parameter.file }}"
+    dest: "{{ parameter.path }}"
+  register: copy_result
+  when:
+  - parameter.file is defined
+  - parameter.file is not none
+  - parameter.file != ''
+
+- name: Update config file.
+  block:
+  - name: Get system shell command.
+    shell: "echo $SHELL"
+    register: shell_result
+
+  - name: Update config file.
+    raw: "source {{ parameter.path }}"
+    when: shell_result.stdout == '/bin/bash'
+  when: template_result.changed or copy_result.changed

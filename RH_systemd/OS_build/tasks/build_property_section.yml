@@ -1,0 +1,27 @@
+---
+- name: Write file.
+  block:
+    - include_tasks: modify_property_section.yml
+      with_items:
+        "{{ parameter.value }}"
+      loop_control:
+        loop_var: section_value
+      when:
+        - parameter.value is defined
+        - parameter.value is not none
+
+    - name: Write file use text. ({{ parameter.path }})
+      template:
+        src: flat_template
+        dest: "{{ parameter.path }}"
+      when: parameter.value is undefined or parameter.value is none
+  when: parameter.file is undefined or parameter.file is none or parameter.file == ''
+
+- name: Copy file. ({{ parameter.file }})
+  copy:
+    src: "{{ parameter.file }}"
+    dest: "{{ parameter.path }}"
+  when:
+  - parameter.file is defined
+  - parameter.file is not none
+  - parameter.file != ''

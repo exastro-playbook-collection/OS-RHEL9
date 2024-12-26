@@ -1,0 +1,4 @@
+---
+file:
+  - /etc/postfix/main.cf
+
